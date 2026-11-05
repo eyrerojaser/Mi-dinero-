@@ -1,0 +1,9 @@
+MI DINERO
+
+Para publicarla:
+1. Crea un repositorio nuevo en GitHub.
+2. Sube todos estos archivos sueltos, sin meterlos en una carpeta.
+3. En Netlify, importa ese repositorio y publica.
+4. En el teléfono, abre el enlace y agrégala a la pantalla de inicio.
+
+Los datos se guardan solo en el teléfono o navegador donde se anotan.

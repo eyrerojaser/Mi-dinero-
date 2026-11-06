@@ -118,12 +118,14 @@ input.big{font:400 1.7rem var(--display)}
 .ghost.small{min-height:44px}
 .nmsg{font-weight:600;color:var(--accent)}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.grp+.grp{border-top:1px solid var(--line)}
-.grp-head{width:100%;background:none;border:0;padding:12px 0;text-align:left;display:flex;align-items:center;gap:12px;min-height:58px}
-.grp-head>span:first-child{flex:1;min-width:0}.grp-head b{display:block;font-weight:600;overflow-wrap:anywhere}.grp-head small{color:var(--muted);font-size:.82rem}
-.grp-tot{font-weight:600;white-space:nowrap}.grp-tot.warn{color:var(--warn)}
-.chev{font-size:1.4rem;line-height:1;color:var(--muted);transition:transform .15s}.grp.open .chev{transform:rotate(90deg)}
-.list.sub{margin:0 0 8px;padding-left:12px;border-left:3px solid var(--soft)}
+.gcards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gcard{display:grid;gap:4px;align-content:start;text-align:left;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:12px;min-height:96px}
+.gcard b{font-weight:600;font-size:.92rem;line-height:1.25;overflow-wrap:anywhere}
+.gtot{font:400 1.25rem/1.1 var(--display)}.gtot.warn{color:var(--warn)}.gtot.bad{color:var(--bad)}
+.gcard small{color:var(--muted);font-size:.78rem}
+.back{border:0;background:none;padding:4px 0 10px;font-weight:700;color:var(--accent)}
+.ghead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:12px}.ghead h2{margin:0}.ghead b{font-weight:600;white-space:nowrap}
+.budget.compact{padding:10px 0}.budget.compact .bar-top{margin-bottom:4px}.budget.compact small{color:var(--muted);font-weight:400}
 .stack{display:grid;gap:13px}
 @media (max-width:360px){.grid2{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:no-preference){.fill{transition:width .25s}}
@@ -200,10 +202,10 @@ input.big{font:400 1.7rem var(--display)}
 <script>
 (function(){
   var KEY='mi-dinero-v1', T={
-    es:{add:'+ Anotar',home:'Inicio',moves:'Movimientos',pays:'Pagos',budget:'Presupuesto',left:'Te queda este mes',over:'Gastaste más de lo que entró',inn:'Entró',out:'Gastaste',examples:'Estos son datos de ejemplo para que veas cómo funciona.',clear:'Borrar ejemplos y empezar',where:'En qué se te fue el dinero',latest:'Últimos movimientos',noMoves:'Todavía no hay nada anotado este mes. Toca «+ Anotar» para empezar.',noSpend:'Cuando anotes un gasto, aquí verás en qué se te va el dinero.',budgetTitle:'Tus límites del mes',of:'de',noLimit:'Sin límite. Tócala para ponerle uno.',nCats:'{n} categorías',nCat1:'1 categoría',leftOf:'Te quedan',near:'Cerca del límite: te quedan',atLimit:'Llegaste a tu límite',passed:'Te pasaste por',newCat:'+ Nueva categoría',newMove:'Anotar',editMove:'Editar',outK:'Gasto',inK:'Ingreso',amount:'¿Cuánto?',cat:'Categoría',note:'Nota (opcional)',date:'Fecha',save:'Guardar',del:'Borrar',sure:'Toca otra vez para borrar',badAmt:'Escribe una cantidad mayor que 0, por ejemplo 25.50.',badDate:'Elige una fecha.',newCatT:'Nueva categoría',editCat:'Editar categoría',catName:'Nombre',limit:'Límite al mes (opcional)',badName:'Escribe un nombre.',dupName:'Ya tienes una categoría con ese nombre.',badLimit:'Escribe el límite con números, por ejemplo 200.',income:'Ingreso',ex:'Ejemplo',today:'Hoy',noStore:'Este navegador no está guardando los datos. Lo que anotes se perderá al cerrar la página.',prev:'Mes anterior',next:'Mes siguiente',close:'Cerrar',locale:'es-US',
+    es:{add:'+ Anotar',home:'Inicio',moves:'Movimientos',pays:'Pagos',budget:'Presupuesto',left:'Te queda este mes',over:'Gastaste más de lo que entró',inn:'Entró',out:'Gastaste',examples:'Estos son datos de ejemplo para que veas cómo funciona.',clear:'Borrar ejemplos y empezar',where:'En qué se te fue el dinero',latest:'Últimos movimientos',noMoves:'Todavía no hay nada anotado este mes. Toca «+ Anotar» para empezar.',noSpend:'Cuando anotes un gasto, aquí verás en qué se te va el dinero.',budgetTitle:'Tus límites del mes',of:'de',noLimit:'Sin límite. Tócala para ponerle uno.',pickGroup:'Toca un grupo para ver sus categorías.',allGroups:'Todos los grupos',tapLimit:'Toca una categoría para cambiarla o ponerle un límite.',overShort:'te pasaste',nearShort:'cerca del límite',nCats:'{n} categorías',nCat1:'1 categoría',leftOf:'Te quedan',near:'Cerca del límite: te quedan',atLimit:'Llegaste a tu límite',passed:'Te pasaste por',newCat:'+ Nueva categoría',newMove:'Anotar',editMove:'Editar',outK:'Gasto',inK:'Ingreso',amount:'¿Cuánto?',cat:'Categoría',note:'Nota (opcional)',date:'Fecha',save:'Guardar',del:'Borrar',sure:'Toca otra vez para borrar',badAmt:'Escribe una cantidad mayor que 0, por ejemplo 25.50.',badDate:'Elige una fecha.',newCatT:'Nueva categoría',editCat:'Editar categoría',catName:'Nombre',limit:'Límite al mes (opcional)',badName:'Escribe un nombre.',dupName:'Ya tienes una categoría con ese nombre.',badLimit:'Escribe el límite con números, por ejemplo 200.',income:'Ingreso',ex:'Ejemplo',today:'Hoy',noStore:'Este navegador no está guardando los datos. Lo que anotes se perderá al cerrar la página.',prev:'Mes anterior',next:'Mes siguiente',close:'Cerrar',locale:'es-US',
       bills:'Facturas',subs:'Suscripciones',billsHint:'Luz, gas, agua, teléfono, internet…',subsHint:'Netflix, música, apps, gimnasio…',noBills:'Todavía no tienes facturas.',noSubs:'Todavía no tienes suscripciones.',addBill:'+ Agregar factura',addSub:'+ Agregar suscripción',newBill:'Nueva factura',newSub:'Nueva suscripción',editPay:'Editar pago',kindL:'Tipo',bill:'Factura',sub:'Suscripción',freq:'Se paga',monthly:'Cada mes',yearly:'Cada año',dueDay:'Día en que vence',dueMonth:'Mes en que vence',remind:'Avisarme',same:'El mismo día',oneBefore:'1 día antes',nBefore:'días antes',payCat:'Al pagarla, anotar el gasto en',grp:'Grupo',namePh:'Por ejemplo, Luz',payNow:'Pagar',undo:'Deshacer',inDays:'Vence en {n} días',tomorrow:'Vence mañana',dueToday:'Vence hoy',overdue1:'Venció ayer',overdue:'Venció hace {n} días',paidNext:'Pagado · el próximo vence el {d}',on:'el {d}',upcoming:'Próximos pagos',seeAll:'Ver todos los pagos',noUpcoming:'Agrega tus facturas y suscripciones en la pestaña Pagos para ver aquí lo que vence pronto.',perMonth:'Pagas al mes en suscripciones',badDay:'Elige un día entre 1 y 31.',
       nTitle:'Avisos en tu teléfono',nOn:'Los avisos están activados en este teléfono. Llegan desde las 9 de la mañana.',nOff:'Activa los avisos y te llegará una notificación antes de que venza un pago, aunque la app esté cerrada.',nBtn:'Activar avisos',nTest:'Enviar aviso de prueba',nStop:'Desactivar avisos',nIOS:'En iPhone, primero instala la app: en Safari toca Compartir y luego «Agregar a pantalla de inicio». Después ábrela desde el icono y activa los avisos aquí.',nDenied:'El teléfono bloqueó los avisos de esta app. Actívalos en los ajustes del teléfono y vuelve a intentarlo.',nNo:'Este navegador no puede recibir avisos.',nErr:'No se pudieron activar los avisos. Revisa tu conexión e inténtalo otra vez.',nSent:'Listo. El aviso de prueba debe llegarte en unos segundos.',nTestErr:'No se pudo enviar el aviso de prueba. Inténtalo otra vez.',nWait:'Un momento…',nOffDone:'Los avisos están desactivados.'},
-    en:{add:'+ Add',home:'Home',moves:'Activity',pays:'Bills',budget:'Budget',left:'Left this month',over:'You spent more than came in',inn:'Came in',out:'You spent',examples:'This is sample data so you can see how it works.',clear:'Clear samples and start',where:'Where your money went',latest:'Latest activity',noMoves:'Nothing added this month yet. Tap “+ Add” to start.',noSpend:'Once you add an expense, you will see here where your money goes.',budgetTitle:'Your monthly limits',of:'of',noLimit:'No limit. Tap to set one.',nCats:'{n} categories',nCat1:'1 category',leftOf:'You have left',near:'Close to the limit: you have left',atLimit:'You reached your limit',passed:'Over by',newCat:'+ New category',newMove:'Add',editMove:'Edit',outK:'Expense',inK:'Income',amount:'How much?',cat:'Category',note:'Note (optional)',date:'Date',save:'Save',del:'Delete',sure:'Tap again to delete',badAmt:'Enter an amount above 0, for example 25.50.',badDate:'Choose a date.',newCatT:'New category',editCat:'Edit category',catName:'Name',limit:'Monthly limit (optional)',badName:'Enter a name.',dupName:'You already have a category with that name.',badLimit:'Enter the limit in numbers, for example 200.',income:'Income',ex:'Sample',today:'Today',noStore:'This browser is not saving your data. Anything you add will be lost when you close the page.',prev:'Previous month',next:'Next month',close:'Close',locale:'en-US',
+    en:{add:'+ Add',home:'Home',moves:'Activity',pays:'Bills',budget:'Budget',left:'Left this month',over:'You spent more than came in',inn:'Came in',out:'You spent',examples:'This is sample data so you can see how it works.',clear:'Clear samples and start',where:'Where your money went',latest:'Latest activity',noMoves:'Nothing added this month yet. Tap “+ Add” to start.',noSpend:'Once you add an expense, you will see here where your money goes.',budgetTitle:'Your monthly limits',of:'of',noLimit:'No limit. Tap to set one.',pickGroup:'Tap a group to see its categories.',allGroups:'All groups',tapLimit:'Tap a category to change it or set a limit.',overShort:'over limit',nearShort:'close to limit',nCats:'{n} categories',nCat1:'1 category',leftOf:'You have left',near:'Close to the limit: you have left',atLimit:'You reached your limit',passed:'Over by',newCat:'+ New category',newMove:'Add',editMove:'Edit',outK:'Expense',inK:'Income',amount:'How much?',cat:'Category',note:'Note (optional)',date:'Date',save:'Save',del:'Delete',sure:'Tap again to delete',badAmt:'Enter an amount above 0, for example 25.50.',badDate:'Choose a date.',newCatT:'New category',editCat:'Edit category',catName:'Name',limit:'Monthly limit (optional)',badName:'Enter a name.',dupName:'You already have a category with that name.',badLimit:'Enter the limit in numbers, for example 200.',income:'Income',ex:'Sample',today:'Today',noStore:'This browser is not saving your data. Anything you add will be lost when you close the page.',prev:'Previous month',next:'Next month',close:'Close',locale:'en-US',
       bills:'Bills',subs:'Subscriptions',billsHint:'Electricity, gas, water, phone, internet…',subsHint:'Netflix, music, apps, gym…',noBills:'No bills yet.',noSubs:'No subscriptions yet.',addBill:'+ Add bill',addSub:'+ Add subscription',newBill:'New bill',newSub:'New subscription',editPay:'Edit payment',kindL:'Type',bill:'Bill',sub:'Subscription',freq:'Paid',monthly:'Every month',yearly:'Every year',dueDay:'Due day',dueMonth:'Due month',remind:'Remind me',same:'On the day',oneBefore:'1 day before',nBefore:'days before',payCat:'When paid, add the expense to',grp:'Group',namePh:'For example, Electricity',payNow:'Pay',undo:'Undo',inDays:'Due in {n} days',tomorrow:'Due tomorrow',dueToday:'Due today',overdue1:'Was due yesterday',overdue:'Was due {n} days ago',paidNext:'Paid · next one is due {d}',on:'{d}',upcoming:'Upcoming payments',seeAll:'See all payments',noUpcoming:'Add your bills and subscriptions in the Bills tab to see what is due soon.',perMonth:'You pay per month in subscriptions',badDay:'Choose a day from 1 to 31.',
       nTitle:'Reminders on your phone',nOn:'Reminders are on for this phone. They arrive from 9 in the morning.',nOff:'Turn on reminders to get a notification before a payment is due, even when the app is closed.',nBtn:'Turn on reminders',nTest:'Send a test reminder',nStop:'Turn off reminders',nIOS:'On iPhone, install the app first: in Safari tap Share, then “Add to Home Screen”. Then open it from the icon and turn on reminders here.',nDenied:'Your phone blocked reminders for this app. Allow them in your phone settings and try again.',nNo:'This browser cannot receive reminders.',nErr:'Reminders could not be turned on. Check your connection and try again.',nSent:'Done. The test reminder should arrive in a few seconds.',nTestErr:'The test reminder could not be sent. Try again.',nWait:'One moment…',nOffDone:'Reminders are off.'}
   };
@@ -277,7 +279,7 @@ input.big{font:400 1.7rem var(--display)}
   function save(){try{localStorage.setItem(KEY,JSON.stringify(state));canSave=true}catch(e){canSave=false}}
   function t(){return T[state.lang]||T.es}
 
-  var now=new Date(),cursor=new Date(now.getFullYear(),now.getMonth(),1),tab='home',kind='out',editId=null,editCat=null,editBill=null,billKind='bill',billFreq='month',nMsg='',openGroups={},lastGroup='';
+  var now=new Date(),cursor=new Date(now.getFullYear(),now.getMonth(),1),tab='home',kind='out',editId=null,editCat=null,editBill=null,billKind='bill',billFreq='month',nMsg='',budgetGroup='',lastGroup='';
   function mkey(){return cursor.getFullYear()+'-'+pad(cursor.getMonth()+1)}
   function todayIso(){return iso(new Date())}
   function monthMoves(){return state.moves.filter(function(m){return m.date.slice(0,7)===mkey()}).sort(function(a,b){return a.date<b.date?1:a.date>b.date?-1:0})}
@@ -365,16 +367,20 @@ input.big{font:400 1.7rem var(--display)}
   function paysHtml(){return notifHtml()+group('bill')+group('sub')}
   function budgetHtml(list){
     var L=t(),s=spentBy(list);
-    function item(c){
-      var sp=s[c.id]||0,lim=c.limit||0,pct=lim?sp/lim:0,cls=lim&&sp>lim?'bad':lim&&pct>=.8?'warn':'',st;
-      if(!lim)st=L.noLimit;else if(sp>lim)st=L.passed+' '+money(sp-lim);else if(sp===lim)st=L.atLimit;else if(pct>=.8)st=L.near+' '+money(lim-sp);else st=L.leftOf+' '+money(lim-sp);
-      return '<li><button type="button" class="budget" data-cat="'+esc(c.id)+'"><div class="bar-top"><span>'+esc(catName(c))+'</span><b>'+esc(money(sp))+(lim?' '+esc(L.of)+' '+esc(money(lim)):'')+'</b></div>'+(lim?'<div class="track"><div class="fill '+cls+'" style="width:'+Math.min(100,Math.max(sp?2:0,pct*100))+'%"></div></div>':'')+'<span class="status '+cls+'">'+esc(st)+'</span></button></li>';
+    if(!budgetGroup){
+      var cards=GROUPS.map(function(g){
+        var cs=catsIn(g.id),tot=cs.reduce(function(a,c){return a+(s[c.id]||0)},0),bad=cs.some(function(c){return c.limit&&(s[c.id]||0)>c.limit}),warn=!bad&&cs.some(function(c){return c.limit&&(s[c.id]||0)>=c.limit*.8});
+        return '<button type="button" class="gcard" data-grp="'+g.id+'"><b>'+esc(grpName(g))+'</b><span class="gtot'+(bad?' bad':warn?' warn':'')+'">'+esc(money(tot))+'</span><small>'+esc(cs.length===1?L.nCat1:fill(L.nCats,{n:cs.length}))+(bad?' · '+esc(L.overShort):warn?' · '+esc(L.nearShort):'')+'</small></button>';
+      }).join('');
+      return '<section class="panel"><h2>'+esc(L.budgetTitle)+'</h2><p class="hint">'+esc(L.pickGroup)+'</p><div class="gcards">'+cards+'</div></section>';
     }
-    var groups=GROUPS.map(function(g){
-      var cs=catsIn(g.id),tot=cs.reduce(function(a,c){return a+(s[c.id]||0)},0),open=!!openGroups[g.id],warn=cs.some(function(c){return c.limit&&(s[c.id]||0)>=c.limit*.8});
-      return '<li class="grp'+(open?' open':'')+'"><button type="button" class="grp-head" data-grp="'+g.id+'" aria-expanded="'+open+'"><span><b>'+esc(grpName(g))+'</b><small>'+esc(cs.length===1?L.nCat1:fill(L.nCats,{n:cs.length}))+'</small></span><span class="grp-tot'+(warn?' warn':'')+'">'+esc(money(tot))+'</span><span class="chev" aria-hidden="true">›</span></button>'+(open?'<ul class="list sub">'+cs.map(item).join('')+'</ul>':'')+'</li>';
+    var g=GROUPS.filter(function(x){return x.id===budgetGroup})[0]||GROUPS[0],cs=catsIn(g.id),tot=cs.reduce(function(a,c){return a+(s[c.id]||0)},0);
+    var items=cs.map(function(c){
+      var sp=s[c.id]||0,lim=c.limit||0,pct=lim?sp/lim:0,cls=lim&&sp>lim?'bad':lim&&pct>=.8?'warn':'',st='';
+      if(lim&&sp>lim)st=L.passed+' '+money(sp-lim);else if(lim&&sp===lim)st=L.atLimit;else if(lim&&pct>=.8)st=L.near+' '+money(lim-sp);
+      return '<li><button type="button" class="budget compact" data-cat="'+esc(c.id)+'"><div class="bar-top"><span>'+esc(catName(c))+'</span><b>'+esc(money(sp))+(lim?' <small>'+esc(L.of)+' '+esc(money(lim))+'</small>':'')+'</b></div>'+(lim?'<div class="track"><div class="fill '+cls+'" style="width:'+Math.min(100,Math.max(sp?2:0,pct*100))+'%"></div></div>':'')+(st?'<span class="status '+cls+'">'+esc(st)+'</span>':'')+'</button></li>';
     }).join('');
-    return '<section class="panel"><h2>'+esc(L.budgetTitle)+'</h2><ul class="list">'+groups+'</ul><button type="button" class="ghost" id="new-cat">'+esc(L.newCat)+'</button></section>';
+    return '<section class="panel"><button type="button" class="back" data-grp-back>‹ '+esc(L.allGroups)+'</button><div class="ghead"><h2>'+esc(grpName(g))+'</h2><b>'+esc(money(tot))+'</b></div><p class="hint">'+esc(L.tapLimit)+'</p><ul class="list">'+items+'</ul><button type="button" class="ghost" id="new-cat">'+esc(L.newCat)+'</button></section>';
   }
 
   /* Avisos con la app cerrada */
@@ -482,7 +488,7 @@ input.big{font:400 1.7rem var(--display)}
     var grp=$('c-grp').value;
     if(editCat)state.cats=state.cats.map(function(c){if(c.id!==editCat)return c;return{id:c.id,group:grp,name:name===catName(c)?c.name:name,es:c.es,en:c.en,limit:lim||0}});
     else state.cats.push({id:uid(),group:grp,name:name,limit:lim||0});
-    openGroups[grp]=true;lastGroup=grp;
+    budgetGroup=grp;lastGroup=grp;
     save();$('cat-dlg').close();render();
   });
   $('cat-del').addEventListener('click',function(){var b=this;arm(b,function(){state.moves.forEach(function(m){if(m.cat===editCat)m.cat='otros'});state.bills.forEach(function(x){if(x.cat===editCat)x.cat='otros'});state.cats=state.cats.filter(function(c){return c.id!==editCat});save();$('cat-dlg').close();render()})});
@@ -499,11 +505,12 @@ input.big{font:400 1.7rem var(--display)}
   $('bill-del').addEventListener('click',function(){var b=this;arm(b,function(){state.bills=state.bills.filter(function(x){return x.id!==editBill});state.moves.forEach(function(m){if(m.bill===editBill){delete m.bill;delete m.cycle}});save();$('bill-dlg').close();render();syncPush()})});
   document.addEventListener('click',function(e){
     var el=e.target.closest('button');if(!el)return;
-    if(el.dataset.tab||el.dataset.tabGo){tab=el.dataset.tab||el.dataset.tabGo;nMsg='';render();window.scrollTo(0,0)}
+    if(el.dataset.tab||el.dataset.tabGo){tab=el.dataset.tab||el.dataset.tabGo;nMsg='';budgetGroup='';render();window.scrollTo(0,0)}
     else if(el.dataset.lang){state.lang=el.dataset.lang;save();render();syncPush()}
     else if(el.dataset.edit)openMove(el.dataset.edit);
     else if(el.dataset.cat)openCat(el.dataset.cat);
-    else if(el.dataset.grp){openGroups[el.dataset.grp]=!openGroups[el.dataset.grp];if(openGroups[el.dataset.grp])lastGroup=el.dataset.grp;render()}
+    else if(el.dataset.grp){budgetGroup=lastGroup=el.dataset.grp;render();window.scrollTo(0,0)}
+    else if(el.hasAttribute('data-grp-back')){budgetGroup='';render()}
     else if(el.dataset.kind)setKind(el.dataset.kind);
     else if(el.dataset.bk)setBillKind(el.dataset.bk);
     else if(el.dataset.bf)setFreq(el.dataset.bf);

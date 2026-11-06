@@ -6,4 +6,6 @@ Para publicarla:
 3. En Netlify, importa ese repositorio y publica.
 4. En el teléfono, abre el enlace y agrégala a la pantalla de inicio.
 
-Los datos se guardan solo en el teléfono o navegador donde se anotan.
+Los movimientos se guardan solo en el teléfono o navegador donde se anotan.
+Para los avisos, los pagos (nombre, cantidad y fecha) también se guardan en Netlify.
+Netlify instala solo lo necesario para los avisos: no hay que configurar claves.

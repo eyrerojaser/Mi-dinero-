@@ -1,0 +1,9 @@
+{
+  "name": "mi-dinero",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@netlify/blobs": "10.7.9",
+    "web-push": "3.6.7"
+  }
+}

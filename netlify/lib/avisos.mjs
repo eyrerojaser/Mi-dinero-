@@ -1,7 +1,7 @@
 import { getStore } from '@netlify/blobs';
 import webpush from 'web-push';
 import { createHash } from 'node:crypto';
-import { stageFor } from './vencimientos.mjs';
+import { stageFor, normRemind } from './vencimientos.mjs';
 
 const store = () => getStore({ name: 'mi-dinero-avisos', consistency: 'strong' });
 export const deviceKey = endpoint => 'd/' + createHash('sha256').update(endpoint).digest('hex').slice(0, 40);
@@ -41,7 +41,7 @@ export function clean(body) {
   const bills = (Array.isArray(body.bills) ? body.bills : []).slice(0, 100).map(b => ({
     id: str(b.id, 40), name: str(b.name, 60), cents: Math.max(0, Math.min(1e9, Math.round(+b.cents) || 0)),
     freq: b.freq === 'year' ? 'year' : 'month', day: Math.max(1, Math.min(31, Math.round(+b.day) || 1)),
-    month: Math.max(0, Math.min(11, Math.round(+b.month) || 0)), remind: [0, 1, 3, 4, 7].includes(+b.remind) ? +b.remind : 3,
+    month: Math.max(0, Math.min(11, Math.round(+b.month) || 0)), remind: normRemind(b.remind),
     since: /^\d{4}-\d{2}-\d{2}$/.test(b.since) ? b.since : '', paid: (Array.isArray(b.paid) ? b.paid : []).slice(-24).map(k => str(k, 7))
   }));
   return {

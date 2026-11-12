@@ -108,7 +108,7 @@ input.big{font:400 1.7rem var(--display)}
 .warnbar{background:var(--warn-soft);color:var(--warn);border-radius:12px;padding:10px 12px;font-size:.88rem;font-weight:600}
 .pay{display:flex;align-items:center;gap:10px}
 .pay .row{flex:1;min-width:0}
-.due{display:block}.due.warn{color:var(--warn);font-weight:600}.due.bad{color:var(--bad);font-weight:600}.due.ok{color:var(--good)}
+.due{display:block}.alert{display:block;color:var(--accent);font-size:.8rem;margin-top:2px}.due.warn{color:var(--warn);font-weight:600}.due.bad{color:var(--bad);font-weight:600}.due.ok{color:var(--good)}
 .paybtn{flex:none;min-height:40px;min-width:84px;border:0;border-radius:999px;background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:.86rem;padding:0 14px}
 .paybtn.undo{background:var(--soft);color:var(--accent)}
 .hint{color:var(--muted);font-size:.86rem;margin:-6px 0 6px}
@@ -192,6 +192,7 @@ input.big{font:400 1.7rem var(--display)}
     <label id="b-month-w"><span id="b-month-l"></span><select id="b-month"></select></label>
   </div>
   <label><span id="b-remind-l"></span><select id="b-remind"></select></label>
+  <p class="hint" id="b-when" style="margin:-4px 0 0"></p>
   <p class="flabel" id="b-cat-l" style="margin:0"></p>
   <div class="stack"><label><span id="b-grp-l"></span><select id="b-grp"></select></label><label><span id="b-cat-l2"></span><select id="b-cat"></select></label></div>
   <p class="err" id="bill-err" role="alert"></p>
@@ -203,11 +204,11 @@ input.big{font:400 1.7rem var(--display)}
 (function(){
   var KEY='mi-dinero-v1', T={
     es:{add:'+ Anotar',home:'Inicio',moves:'Movimientos',pays:'Pagos',budget:'Presupuesto',left:'Te queda este mes',over:'Gastaste más de lo que entró',inn:'Entró',out:'Gastaste',examples:'Estos son datos de ejemplo para que veas cómo funciona.',clear:'Borrar ejemplos y empezar',where:'En qué se te fue el dinero',latest:'Últimos movimientos',noMoves:'Todavía no hay nada anotado este mes. Toca «+ Anotar» para empezar.',noSpend:'Cuando anotes un gasto, aquí verás en qué se te va el dinero.',budgetTitle:'Tus límites del mes',of:'de',noLimit:'Sin límite. Tócala para ponerle uno.',pickGroup:'Toca un grupo para ver sus categorías.',allGroups:'Todos los grupos',tapLimit:'Toca una categoría para cambiarla o ponerle un límite.',overShort:'te pasaste',nearShort:'cerca del límite',nCats:'{n} categorías',nCat1:'1 categoría',leftOf:'Te quedan',near:'Cerca del límite: te quedan',atLimit:'Llegaste a tu límite',passed:'Te pasaste por',newCat:'+ Nueva categoría',newMove:'Anotar',editMove:'Editar',outK:'Gasto',inK:'Ingreso',amount:'¿Cuánto?',cat:'Categoría',note:'Nota (opcional)',date:'Fecha',save:'Guardar',del:'Borrar',sure:'Toca otra vez para borrar',badAmt:'Escribe una cantidad mayor que 0, por ejemplo 25.50.',badDate:'Elige una fecha.',newCatT:'Nueva categoría',editCat:'Editar categoría',catName:'Nombre',limit:'Límite al mes (opcional)',badName:'Escribe un nombre.',dupName:'Ya tienes una categoría con ese nombre.',badLimit:'Escribe el límite con números, por ejemplo 200.',income:'Ingreso',ex:'Ejemplo',today:'Hoy',noStore:'Este navegador no está guardando los datos. Lo que anotes se perderá al cerrar la página.',prev:'Mes anterior',next:'Mes siguiente',close:'Cerrar',locale:'es-US',
-      bills:'Facturas',subs:'Suscripciones',billsHint:'Luz, gas, agua, teléfono, internet…',subsHint:'Netflix, música, apps, gimnasio…',noBills:'Todavía no tienes facturas.',noSubs:'Todavía no tienes suscripciones.',addBill:'+ Agregar factura',addSub:'+ Agregar suscripción',newBill:'Nueva factura',newSub:'Nueva suscripción',editPay:'Editar pago',kindL:'Tipo',bill:'Factura',sub:'Suscripción',freq:'Se paga',monthly:'Cada mes',yearly:'Cada año',dueDay:'Día en que vence',dueMonth:'Mes en que vence',remind:'Avisarme',same:'El mismo día',oneBefore:'1 día antes',nBefore:'días antes',payCat:'Al pagarla, anotar el gasto en',grp:'Grupo',namePh:'Por ejemplo, Luz',payNow:'Pagar',undo:'Deshacer',inDays:'Vence en {n} días',tomorrow:'Vence mañana',dueToday:'Vence hoy',overdue1:'Venció ayer',overdue:'Venció hace {n} días',paidNext:'Pagado · el próximo vence el {d}',on:'el {d}',upcoming:'Próximos pagos',seeAll:'Ver todos los pagos',noUpcoming:'Agrega tus facturas y suscripciones en la pestaña Pagos para ver aquí lo que vence pronto.',perMonth:'Pagas al mes en suscripciones',badDay:'Elige un día entre 1 y 31.',
-      nTitle:'Avisos en tu teléfono',nOn:'Los avisos están activados en este teléfono. Llegan desde las 9 de la mañana.',nOff:'Activa los avisos y te llegará una notificación antes de que venza un pago, aunque la app esté cerrada.',nBtn:'Activar avisos',nTest:'Enviar aviso de prueba',nStop:'Desactivar avisos',nIOS:'En iPhone, primero instala la app: en Safari toca Compartir y luego «Agregar a pantalla de inicio». Después ábrela desde el icono y activa los avisos aquí.',nDenied:'El teléfono bloqueó los avisos de esta app. Actívalos en los ajustes del teléfono y vuelve a intentarlo.',nNo:'Este navegador no puede recibir avisos.',nErr:'No se pudieron activar los avisos. Revisa tu conexión e inténtalo otra vez.',nSent:'Listo. El aviso de prueba debe llegarte en unos segundos.',nTestErr:'No se pudo enviar el aviso de prueba. Inténtalo otra vez.',nWait:'Un momento…',nOffDone:'Los avisos están desactivados.'},
+      bills:'Facturas',subs:'Suscripciones',billsHint:'Luz, gas, agua, teléfono, internet…',subsHint:'Netflix, música, apps, gimnasio…',noBills:'Todavía no tienes facturas.',noSubs:'Todavía no tienes suscripciones.',addBill:'+ Agregar factura',addSub:'+ Agregar suscripción',newBill:'Nueva factura',newSub:'Nueva suscripción',editPay:'Editar pago',kindL:'Tipo',bill:'Factura',sub:'Suscripción',freq:'Se paga',monthly:'Cada mes',yearly:'Cada año',dueDay:'Día en que vence',dueMonth:'Mes en que vence',remind:'Avisarme',nBefore:'días antes',alertOn:'Aviso el {d}',alertNow:'Aviso: ya te llegó o te llega hoy',alertWhen:'Te llegará el aviso el {d}, alrededor de las 9 de la mañana.',alertSoon:'Como falta poco para que venza, el aviso te llegará lo antes posible, entre las 9 de la mañana y las 9 de la noche.',payCat:'Al pagarla, anotar el gasto en',grp:'Grupo',namePh:'Por ejemplo, Luz',payNow:'Pagar',undo:'Deshacer',inDays:'Vence en {n} días',tomorrow:'Vence mañana',dueToday:'Vence hoy',overdue1:'Venció ayer',overdue:'Venció hace {n} días',paidNext:'Pagado · el próximo vence el {d}',on:'el {d}',upcoming:'Próximos pagos',seeAll:'Ver todos los pagos',noUpcoming:'Agrega tus facturas y suscripciones en la pestaña Pagos para ver aquí lo que vence pronto.',perMonth:'Pagas al mes en suscripciones',badDay:'Elige un día entre 1 y 31.',
+      nTitle:'Avisos en tu teléfono',nOn:'Los avisos están activados en este teléfono. Cada pago muestra el día en que te llega su aviso, alrededor de las 9 de la mañana.',nOff:'Activa los avisos y te llegará una notificación antes de que venza un pago, aunque la app esté cerrada.',nBtn:'Activar avisos',nTest:'Enviar aviso de prueba',nStop:'Desactivar avisos',nIOS:'En iPhone, primero instala la app: en Safari toca Compartir y luego «Agregar a pantalla de inicio». Después ábrela desde el icono y activa los avisos aquí.',nDenied:'El teléfono bloqueó los avisos de esta app. Actívalos en los ajustes del teléfono y vuelve a intentarlo.',nNo:'Este navegador no puede recibir avisos.',nErr:'No se pudieron activar los avisos. Revisa tu conexión e inténtalo otra vez.',nSent:'Listo. El aviso de prueba debe llegarte en unos segundos.',nTestErr:'No se pudo enviar el aviso de prueba. Inténtalo otra vez.',nWait:'Un momento…',nOffDone:'Los avisos están desactivados.'},
     en:{add:'+ Add',home:'Home',moves:'Activity',pays:'Bills',budget:'Budget',left:'Left this month',over:'You spent more than came in',inn:'Came in',out:'You spent',examples:'This is sample data so you can see how it works.',clear:'Clear samples and start',where:'Where your money went',latest:'Latest activity',noMoves:'Nothing added this month yet. Tap “+ Add” to start.',noSpend:'Once you add an expense, you will see here where your money goes.',budgetTitle:'Your monthly limits',of:'of',noLimit:'No limit. Tap to set one.',pickGroup:'Tap a group to see its categories.',allGroups:'All groups',tapLimit:'Tap a category to change it or set a limit.',overShort:'over limit',nearShort:'close to limit',nCats:'{n} categories',nCat1:'1 category',leftOf:'You have left',near:'Close to the limit: you have left',atLimit:'You reached your limit',passed:'Over by',newCat:'+ New category',newMove:'Add',editMove:'Edit',outK:'Expense',inK:'Income',amount:'How much?',cat:'Category',note:'Note (optional)',date:'Date',save:'Save',del:'Delete',sure:'Tap again to delete',badAmt:'Enter an amount above 0, for example 25.50.',badDate:'Choose a date.',newCatT:'New category',editCat:'Edit category',catName:'Name',limit:'Monthly limit (optional)',badName:'Enter a name.',dupName:'You already have a category with that name.',badLimit:'Enter the limit in numbers, for example 200.',income:'Income',ex:'Sample',today:'Today',noStore:'This browser is not saving your data. Anything you add will be lost when you close the page.',prev:'Previous month',next:'Next month',close:'Close',locale:'en-US',
-      bills:'Bills',subs:'Subscriptions',billsHint:'Electricity, gas, water, phone, internet…',subsHint:'Netflix, music, apps, gym…',noBills:'No bills yet.',noSubs:'No subscriptions yet.',addBill:'+ Add bill',addSub:'+ Add subscription',newBill:'New bill',newSub:'New subscription',editPay:'Edit payment',kindL:'Type',bill:'Bill',sub:'Subscription',freq:'Paid',monthly:'Every month',yearly:'Every year',dueDay:'Due day',dueMonth:'Due month',remind:'Remind me',same:'On the day',oneBefore:'1 day before',nBefore:'days before',payCat:'When paid, add the expense to',grp:'Group',namePh:'For example, Electricity',payNow:'Pay',undo:'Undo',inDays:'Due in {n} days',tomorrow:'Due tomorrow',dueToday:'Due today',overdue1:'Was due yesterday',overdue:'Was due {n} days ago',paidNext:'Paid · next one is due {d}',on:'{d}',upcoming:'Upcoming payments',seeAll:'See all payments',noUpcoming:'Add your bills and subscriptions in the Bills tab to see what is due soon.',perMonth:'You pay per month in subscriptions',badDay:'Choose a day from 1 to 31.',
-      nTitle:'Reminders on your phone',nOn:'Reminders are on for this phone. They arrive from 9 in the morning.',nOff:'Turn on reminders to get a notification before a payment is due, even when the app is closed.',nBtn:'Turn on reminders',nTest:'Send a test reminder',nStop:'Turn off reminders',nIOS:'On iPhone, install the app first: in Safari tap Share, then “Add to Home Screen”. Then open it from the icon and turn on reminders here.',nDenied:'Your phone blocked reminders for this app. Allow them in your phone settings and try again.',nNo:'This browser cannot receive reminders.',nErr:'Reminders could not be turned on. Check your connection and try again.',nSent:'Done. The test reminder should arrive in a few seconds.',nTestErr:'The test reminder could not be sent. Try again.',nWait:'One moment…',nOffDone:'Reminders are off.'}
+      bills:'Bills',subs:'Subscriptions',billsHint:'Electricity, gas, water, phone, internet…',subsHint:'Netflix, music, apps, gym…',noBills:'No bills yet.',noSubs:'No subscriptions yet.',addBill:'+ Add bill',addSub:'+ Add subscription',newBill:'New bill',newSub:'New subscription',editPay:'Edit payment',kindL:'Type',bill:'Bill',sub:'Subscription',freq:'Paid',monthly:'Every month',yearly:'Every year',dueDay:'Due day',dueMonth:'Due month',remind:'Remind me',nBefore:'days before',alertOn:'Reminder on {d}',alertNow:'Reminder: already sent or arriving today',alertWhen:'The reminder will arrive on {d}, around 9 in the morning.',alertSoon:'Since it is due soon, the reminder will arrive as soon as possible, between 9 in the morning and 9 at night.',payCat:'When paid, add the expense to',grp:'Group',namePh:'For example, Electricity',payNow:'Pay',undo:'Undo',inDays:'Due in {n} days',tomorrow:'Due tomorrow',dueToday:'Due today',overdue1:'Was due yesterday',overdue:'Was due {n} days ago',paidNext:'Paid · next one is due {d}',on:'{d}',upcoming:'Upcoming payments',seeAll:'See all payments',noUpcoming:'Add your bills and subscriptions in the Bills tab to see what is due soon.',perMonth:'You pay per month in subscriptions',badDay:'Choose a day from 1 to 31.',
+      nTitle:'Reminders on your phone',nOn:'Reminders are on for this phone. Each payment shows the day its reminder arrives, around 9 in the morning.',nOff:'Turn on reminders to get a notification before a payment is due, even when the app is closed.',nBtn:'Turn on reminders',nTest:'Send a test reminder',nStop:'Turn off reminders',nIOS:'On iPhone, install the app first: in Safari tap Share, then “Add to Home Screen”. Then open it from the icon and turn on reminders here.',nDenied:'Your phone blocked reminders for this app. Allow them in your phone settings and try again.',nNo:'This browser cannot receive reminders.',nErr:'Reminders could not be turned on. Check your connection and try again.',nSent:'Done. The test reminder should arrive in a few seconds.',nTestErr:'The test reminder could not be sent. Try again.',nWait:'One moment…',nOffDone:'Reminders are off.'}
   };
   function $(id){return document.getElementById(id)}
   function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
@@ -229,6 +230,8 @@ input.big{font:400 1.7rem var(--display)}
   /* Vencimientos. La misma lógica está en netlify/lib/vencimientos.mjs: si cambias una, cambia la otra. */
   function dim(y,m){return new Date(Date.UTC(y,m+1,0)).getUTCDate()}
   function at(y,m,day){var d=new Date(Date.UTC(y,m,1));y=d.getUTCFullYear();m=d.getUTCMonth();return y+'-'+pad(m+1)+'-'+pad(Math.min(day,dim(y,m)))}
+  function normRemind(v){v=+v;return v===3||v===4||v===5?v:v>5?5:3}
+  function addDays(s,n){var d=new Date(Date.UTC(+s.slice(0,4),+s.slice(5,7)-1,+s.slice(8,10)+n));return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate())}
   function daysBetween(a,b){function p(s){return Date.UTC(+s.slice(0,4),+s.slice(5,7)-1,+s.slice(8,10))}return Math.round((p(b)-p(a))/864e5)}
   function cycle(b,y,m){if(b.freq==='year')return{key:String(y),date:at(y,b.month,b.day)};var d=new Date(Date.UTC(y,m,1));return{key:d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1),date:at(d.getUTCFullYear(),d.getUTCMonth(),b.day)}}
   function nextDue(b,today,isPaid){
@@ -261,6 +264,8 @@ input.big{font:400 1.7rem var(--display)}
   if(!state||!Array.isArray(state.moves)||!Array.isArray(state.cats))state=defaults();
   /* Actualización: agrega la lista de pagos y la categoría Suscripciones sin tocar lo que ya estaba. */
   if(!Array.isArray(state.bills))state.bills=[];
+  /* Los avisos ahora son 3, 4 o 5 días antes. Ajusta los pagos que tenían otro número. */
+  state.bills.forEach(function(b){b.remind=normRemind(b.remind)});
   /* Actualización: ordena las categorías en grupos. Conserva movimientos, límites y nombres que tú cambiaste. */
   if(!state.catsV2){
     var byId={};state.cats.forEach(function(c){byId[c.id]=c});
@@ -299,11 +304,12 @@ input.big{font:400 1.7rem var(--display)}
     if(r.paidNow)return{txt:fill(L.paidNext,{d:fmtDate(r.date)}),cls:'ok'};
     var d=r.days,cls=d<0?'bad':d<=(+b.remind||0)||d<=1?'warn':'';
     var txt=d<-1?fill(L.overdue,{n:-d}):d===-1?L.overdue1:d===0?L.dueToday:d===1?L.tomorrow:fill(L.inDays,{n:d});
-    return{txt:txt+(d>1?' · '+fill(L.on,{d:fmtDate(r.date)}):''),cls:cls};
+    var al='';if(d>0){var ad=addDays(r.date,-normRemind(b.remind));al=ad>todayIso()?fill(L.alertOn,{d:fmtDate(ad)}):L.alertNow}
+    return{txt:txt+(d>1?' · '+fill(L.on,{d:fmtDate(r.date)}):''),cls:cls,alert:al};
   }
   function billRow(b){
     var r=due(b),s=dueText(b,r),L=t();
-    return '<li class="pay"><button type="button" class="row" data-bill="'+esc(b.id)+'"><span><b>'+esc(b.name)+'</b><small class="due '+s.cls+'">'+esc(s.txt)+'</small></span><span class="amt">'+esc(money(b.cents))+'</span></button>'+
+    return '<li class="pay"><button type="button" class="row" data-bill="'+esc(b.id)+'"><span><b>'+esc(b.name)+'</b><small class="due '+s.cls+'">'+esc(s.txt)+'</small>'+(s.alert&&state.push?'<small class="alert">🔔 '+esc(s.alert)+'</small>':'')+'</span><span class="amt">'+esc(money(b.cents))+'</span></button>'+
       (r.paidNow?'<button type="button" class="paybtn undo" data-undo="'+esc(b.id)+'">'+esc(L.undo)+'</button>':'<button type="button" class="paybtn" data-pay="'+esc(b.id)+'">'+esc(L.payNow)+'</button>')+'</li>';
   }
   function sortedBills(group){return state.bills.filter(function(b){return !group||b.group===group}).map(function(b){return{b:b,r:due(b)}}).sort(function(x,y){return(x.r.paidNow-y.r.paidNow)||(x.r.days-y.r.days)})}
@@ -455,17 +461,24 @@ input.big{font:400 1.7rem var(--display)}
     $('b-freq-l').textContent=L.freq;$('bf-month').textContent=L.monthly;$('bf-year').textContent=L.yearly;$('b-day-l').textContent=L.dueDay;$('b-month-l').textContent=L.dueMonth;
     $('b-remind-l').textContent=L.remind;$('b-cat-l').textContent=L.payCat;$('bill-save').textContent=L.save;$('bill-err').textContent='';
     $('b-name').placeholder=g==='sub'?'Netflix':L.namePh;
-    $('b-remind').innerHTML=[0,1,3,4,7].map(function(n){return '<option value="'+n+'">'+esc(n===0?L.same:n===1?L.oneBefore:n+' '+L.nBefore)+'</option>'}).join('');
+    $('b-remind').innerHTML=[3,4,5].map(function(n){return '<option value="'+n+'">'+esc(n+' '+L.nBefore)+'</option>'}).join('');
     $('b-month').innerHTML=Array.from({length:12},function(_,i){var s=new Intl.DateTimeFormat(L.locale,{month:'long'}).format(new Date(2026,i,1));return '<option value="'+i+'">'+esc(s.charAt(0).toUpperCase()+s.slice(1))+'</option>'}).join('');
     $('b-day').innerHTML=Array.from({length:31},function(_,i){return '<option value="'+(i+1)+'">'+(i+1)+'</option>'}).join('');
     $('b-grp-l').textContent=L.grp;$('b-cat-l2').textContent=L.cat;
     setBillKind(g);setFreq(b?b.freq:'month');
     $('b-name').value=b?b.name:'';$('b-amount').value=b?plain(b.cents):'';
     $('b-day').value=String(b?b.day:new Date().getDate());$('b-month').value=String(b?b.month:new Date().getMonth());
-    $('b-remind').value=String(b?b.remind:3);pickCat('b-grp','b-cat',b&&catBy(b.cat)?b.cat:(g==='sub'?(catBy('suscripciones')?'suscripciones':'otros'):(catBy('luz')?'luz':'otros')));
+    $('b-remind').value=String(b?normRemind(b.remind):3);billWhen();pickCat('b-grp','b-cat',b&&catBy(b.cat)?b.cat:(g==='sub'?(catBy('suscripciones')?'suscripciones':'otros'):(catBy('luz')?'luz':'otros')));
     var del=$('bill-del');del.hidden=!b;del.textContent=L.del;del.dataset.armed='';
     $('bill-dlg').showModal();
   }
+  function billWhen(){
+    var L=t(),day=+$('b-day').value,rem=+$('b-remind').value,tb={freq:billFreq,day:day,month:+$('b-month').value,since:todayIso()};
+    if(editBill){var ob=state.bills.filter(function(x){return x.id===editBill})[0];if(ob){tb.since=ob.since;tb.id=ob.id}}
+    var r=tb.id?nextDue(tb,todayIso(),function(k){return !!paidMove(tb,k)}):nextDue(tb,todayIso(),function(){return false});
+    var ad=addDays(r.date,-rem);$('b-when').textContent=ad>todayIso()?fill(L.alertWhen,{d:fmtDate(ad,{weekday:'long',day:'numeric',month:'long'})}):L.alertSoon;
+  }
+  ['b-day','b-month','b-remind'].forEach(function(id){$(id).addEventListener('change',billWhen)});
   function arm(btn,run){if(btn.dataset.armed){run()}else{btn.dataset.armed='1';btn.textContent=t().sure}}
 
   $('move-form').addEventListener('submit',function(e){
@@ -513,7 +526,7 @@ input.big{font:400 1.7rem var(--display)}
     else if(el.hasAttribute('data-grp-back')){budgetGroup='';render()}
     else if(el.dataset.kind)setKind(el.dataset.kind);
     else if(el.dataset.bk)setBillKind(el.dataset.bk);
-    else if(el.dataset.bf)setFreq(el.dataset.bf);
+    else if(el.dataset.bf){setFreq(el.dataset.bf);billWhen()}
     else if(el.dataset.bill)openBill(el.dataset.bill);
     else if(el.dataset.newBill)openBill(null,el.dataset.newBill);
     else if(el.dataset.pay)payBill(el.dataset.pay);

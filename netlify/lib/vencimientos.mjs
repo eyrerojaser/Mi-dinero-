@@ -24,12 +24,10 @@ export function nextDue(b, today, isPaid) {
   if (applies && !isPaid(cur.key)) return { key: cur.key, date: cur.date, days: daysBetween(today, cur.date), paidNow: false };
   return { key: next.key, date: next.date, days: daysBetween(today, next.date), paidNow: applies && isPaid(cur.key) };
 }
-// Qué aviso toca hoy para este pago: 'pre', 'hoy', 'vencido' o null.
+// Días de aviso permitidos: 3, 4 o 5 antes del vencimiento. Nunca el mismo día.
+export function normRemind(v) { v = +v; return v === 3 || v === 4 || v === 5 ? v : v > 5 ? 5 : 3; }
+// Qué aviso toca hoy para este pago: 'pre' o null. Llega desde el día elegido hasta el día antes de vencer.
 export function stageFor(b, today, isPaid) {
-  const r = nextDue(b, today, isPaid), remind = +b.remind || 0;
-  let stage = null;
-  if (r.days === 0) stage = 'hoy';
-  else if (r.days > 0 && r.days <= remind) stage = 'pre';
-  else if (r.days < 0 && r.days >= -3) stage = 'vencido';
-  return { ...r, stage };
+  const r = nextDue(b, today, isPaid), remind = normRemind(b.remind);
+  return { ...r, stage: r.days > 0 && r.days <= remind ? 'pre' : null };
 }
